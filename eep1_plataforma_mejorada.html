@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EEP1 - Exploración y Experimentación Proyectual I | UCA Arquitectura</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #f8f9fa;
+            --accent: #e85d04;
+            --accent-light: #f48c06;
+            --text: #2d3436;
+            --text-light: #636e72;
+            --white: #ffffff;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --shadow-card: 0 10px 40px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            --gradient-dark: linear-gradient(135deg, var(--primary) 0%, #2d2d2d 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: var(--text); line-height: 1.7; background: var(--secondary); overflow-x: hidden; }
+        header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); box-shadow: var(--shadow); position: fixed; width: 100%; top: 0; z-index: 1000; transition: var(--transition); }
+        header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+        nav { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 1rem; text-decoration: none; color: var(--primary); }
+        .logo-icon { width: 55px; height: 55px; background: var(--gradient-primary); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(232, 93, 4, 0.3); }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; }
+        .logo-sub { font-size: 0.75rem; color: var(--text-light); font-weight: 500; letter-spacing: 0.5px; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.9rem; position: relative; transition: var(--transition); padding: 0.5rem 0; }
+        .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gradient-primary); transition: var(--transition); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover { color: var(--accent); }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--primary); }
+        .hero { margin-top: 80px; background: var(--gradient-dark); color: white; padding: 8rem 2rem 6rem; position: relative; overflow: hidden; min-height: 90vh; display: flex; align-items: center; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('https://images.adsttc.com/media/images/640f/0914/a207/ca01/70eb/ff7b/medium_jpg/the-phenomenology-of-light-in-contemporary-religious-architecture_1.jpg?1678706971') center/cover; opacity: 0.15; }
+        .hero::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.7) 50%, rgba(232,93,4,0.1) 100%); }
+        .hero-content { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(232, 93, 4, 0.2); border: 1px solid var(--accent); padding: 0.6rem 1.2rem; border-radius: 50px; font-size: 0.875rem; font-weight: 600; margin-bottom: 2rem; color: var(--accent-light); backdrop-filter: blur(5px); }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 1.5rem; font-weight: 700; }
+        .hero h1 span { color: var(--accent-light); }
+        .hero-subtitle { font-size: 1.4rem; max-width: 700px; opacity: 0.95; margin-bottom: 1.5rem; font-weight: 300; color: rgba(255,255,255,0.9); }
+        .hero-desc { font-size: 1.1rem; max-width: 650px; opacity: 0.8; margin-bottom: 3rem; line-height: 1.8; }
+        .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn-primary { background: var(--gradient-primary); color: white; border: none; padding: 1rem 2.5rem; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; box-shadow: 0 4px 20px rgba(232, 93, 4, 0.4); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(232, 93, 4, 0.5); }
+        .btn-secondary { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.3); padding: 1rem 2.5rem; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: white; }
+        .hero-stats { display: flex; gap: 4rem; margin-top: 4rem; flex-wrap: wrap; }
+        .stat { text-align: left; }
+        .stat-number { font-size: 3rem; font-weight: 700; color: var(--accent-light); display: block; line-height: 1; }
+        .stat-label { font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem; display: block; }
+        section { padding: 6rem 2rem; max-width: 1400px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-tag { color: var(--accent); font-weight: 600; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1rem; display: block; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); color: var(--primary); margin-bottom: 1rem; }
+        .section-desc { color: var(--text-light); max-width: 700px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; }
+        .about-section { background: white; margin: 0 -2rem; padding: 6rem 2rem; }
+        .about-container { max-width: 1400px; margin: 0 auto; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-content h3 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary); margin-bottom: 1.5rem; }
+        .about-content p { color: var(--text-light); margin-bottom: 1.5rem; line-height: 1.8; }
+        .about-image { position: relative; }
+        .about-image img { width: 100%; border-radius: 16px; box-shadow: var(--shadow-card); }
+        .about-image::before { content: ''; position: absolute; top: -20px; left: -20px; width: 100%; height: 100%; border: 3px solid var(--accent); border-radius: 16px; z-index: -1; }
+        .features-list { list-style: none; margin-top: 2rem; }
+        .features-list li { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; color: var(--text); }
+        .features-list li i { color: var(--accent); font-size: 1.2rem; }
+        .highlight-box { background: linear-gradient(135deg, rgba(232,93,4,0.1) 0%, rgba(244,140,6,0.05) 100%); border-left: 4px solid var(--accent); padding: 1.5rem 2rem; border-radius: 0 12px 12px 0; margin: 2rem 0; }
+        .highlight-box p { color: var(--text); font-style: italic; margin: 0; }
+        .highlight-box strong { color: var(--accent); }
+        .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+        .info-card { background: white; padding: 2rem; border-radius: 16px; text-align: center; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid rgba(0,0,0,0.05); }
+        .info-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-card); }
+        .info-card-icon { width: 70px; height: 70px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; margin: 0 auto 1.5rem; box-shadow: 0 8px 25px rgba(232, 93, 4, 0.3); }
+        .info-card-title { font-weight: 700; font-size: 1.1rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .info-card-value { font-size: 2rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem; }
+        .info-card-desc { color: var(--text-light); font-size: 0.9rem; }
+        .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .module-card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); cursor: pointer; position: relative; border: 1px solid rgba(0,0,0,0.05); }
+        .module-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-card); }
+        .module-image { height: 220px; position: relative; overflow: hidden; }
+        .module-image img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .module-card:hover .module-image img { transform: scale(1.08); }
+        .module-icon { position: absolute; top: 1rem; right: 1rem; width: 55px; height: 55px; background: rgba(255,255,255,0.95); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent); box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: var(--transition); }
+        .module-card:hover .module-icon { background: var(--gradient-primary); color: white; }
+        .module-content { padding: 1.75rem; }
+        .module-number { color: var(--accent); font-weight: 700; font-size: 0.8rem; margin-bottom: 0.5rem; letter-spacing: 1px; }
+        .module-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--primary); font-family: 'Playfair Display', serif; }
+        .module-desc { color: var(--text-light); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem; }
+        .module-topics { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .topic-tag { background: var(--secondary); padding: 0.35rem 0.9rem; border-radius: 50px; font-size: 0.8rem; color: var(--text-light); border: 1px solid #e8e8e8; transition: var(--transition); }
+        .topic-tag:hover { background: var(--accent); color: white; border-color: var(--accent); }
+        .tools-section { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); margin: 0 -2rem; padding: 6rem 2rem; }
+        .tools-container { max-width: 1400px; margin: 0 auto; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .tool-card { background: var(--white); padding: 2.5rem; border-radius: 16px; border: 1px solid rgba(0,0,0,0.05); transition: var(--transition); cursor: pointer; box-shadow: var(--shadow); }
+        .tool-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: var(--shadow-card); }
+        .tool-icon { width: 70px; height: 70px; background: var(--gradient-primary); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; margin-bottom: 1.5rem; box-shadow: 0 8px 25px rgba(232, 93, 4, 0.3); }
+        .tool-name { font-weight: 700; font-size: 1.2rem; margin-bottom: 0.75rem; color: var(--primary); font-family: 'Playfair Display', serif; }
+        .tool-desc { font-size: 0.95rem; color: var(--text-light); line-height: 1.7; }
+        .career-section { background: white; margin: 0 -2rem; padding: 6rem 2rem; }
+        .career-container { max-width: 1400px; margin: 0 auto; }
+        .timeline { position: relative; padding: 2rem 0; }
+        .timeline::before { content: ''; position: absolute; left: 50%; transform: translateX(-50%); width: 3px; height: 100%; background: linear-gradient(to bottom, var(--accent), var(--accent-light)); }
+        .timeline-item { display: flex; justify-content: flex-end; padding-right: 50%; position: relative; margin-bottom: 3rem; }
+        .timeline-item:nth-child(even) { justify-content: flex-start; padding-right: 0; padding-left: 50%; }
+        .timeline-content { background: white; padding: 2rem; border-radius: 16px; box-shadow: var(--shadow); max-width: 450px; margin: 0 2rem; border: 1px solid rgba(0,0,0,0.05); position: relative; }
+        .timeline-content::before { content: ''; position: absolute; width: 20px; height: 20px; background: var(--accent); border-radius: 50%; top: 50%; transform: translateY(-50%); }
+        .timeline-item:nth-child(odd) .timeline-content::before { right: -42px; }
+        .timeline-item:nth-child(even) .timeline-content::before { left: -42px; }
+        .timeline-year { color: var(--accent); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .timeline-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--primary); margin-bottom: 0.75rem; }
+        .timeline-desc { color: var(--text-light); font-size: 0.95rem; line-height: 1.7; }
+        .objectives-section { background: var(--gradient-dark); margin: 0 -2rem; padding: 6rem 2rem; color: white; }
+        .objectives-container { max-width: 1400px; margin: 0 auto; }
+        .objectives-section .section-title { color: white; }
+        .objectives-section .section-desc { color: rgba(255,255,255,0.8); }
+        .objectives-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .objective-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); transition: var(--transition); }
+        .objective-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-5px); }
+        .objective-icon { width: 60px; height: 60px; background: var(--gradient-primary); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.5rem; }
+        .objective-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem; }
+        .objective-desc { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.7; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+        .gallery-item { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; box-shadow: var(--shadow); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.85), transparent); padding: 2.5rem 1.5rem 1.5rem; color: white; transform: translateY(100%); transition: var(--transition); }
+        .gallery-item:hover .gallery-overlay { transform: translateY(0); }
+        .gallery-title { font-weight: 600; font-size: 1.2rem; font-family: 'Playfair Display', serif; }
+        .gallery-category { font-size: 0.85rem; opacity: 0.8; margin-top: 0.25rem; }
+        .resources-section { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); margin: 0 -2rem; padding: 6rem 2rem; }
+        .resources-container { max-width: 1400px; margin: 0 auto; }
+        .resources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+        .resource-card { background: white; padding: 2rem; border-radius: 16px; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid rgba(0,0,0,0.05); }
+        .resource-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-card); }
+        .resource-icon { width: 55px; height: 55px; background: var(--secondary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent); margin-bottom: 1.5rem; transition: var(--transition); }
+        .resource-card:hover .resource-icon { background: var(--gradient-primary); color: white; }
+        .resource-title { font-weight: 700; font-size: 1.1rem; color: var(--primary); margin-bottom: 0.75rem; }
+        .resource-desc { color: var(--text-light); font-size: 0.9rem; line-height: 1.6; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 2000; justify-content: center; align-items: center; padding: 2rem; overflow-y: auto; }
+        .modal.active { display: flex; }
+        .modal-content { background: var(--white); border-radius: 20px; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: modalSlide 0.4s ease; box-shadow: 0 25px 80px rgba(0,0,0,0.3); }
+        @keyframes modalSlide { from { opacity: 0; transform: translateY(-50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .modal-header { padding: 2.5rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: flex-start; background: linear-gradient(135deg, #f8f9fa 0%, white 100%); }
+        .modal-title-group { flex: 1; }
+        .modal-subtitle { color: var(--accent); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; }
+        .modal-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); }
+        .modal-close { background: var(--secondary); border: none; width: 45px; height: 45px; border-radius: 12px; font-size: 1.3rem; cursor: pointer; color: var(--text-light); transition: var(--transition); display: flex; align-items: center; justify-content: center; }
+        .modal-close:hover { background: var(--accent); color: white; transform: rotate(90deg); }
+        .modal-body { padding: 2.5rem; }
+        .modal-section { margin-bottom: 2rem; }
+        .modal-section-title { font-weight: 700; font-size: 1.1rem; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+        .modal-section-title i { color: var(--accent); }
+        .content-list { list-style: none; }
+        .content-list li { padding: 0.85rem 0; border-bottom: 1px solid #f0f0f0; display: flex; align-items: flex-start; gap: 1rem; color: var(--text-light); line-height: 1.6; }
+        .content-list li:last-child { border-bottom: none; }
+        .content-list li::before { content: '→'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+        footer { background: var(--primary); color: white; padding: 4rem 2rem 1.5rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+        .footer-section h3 { font-family: 'Playfair Display', serif; margin-bottom: 1.5rem; color: var(--accent-light); font-size: 1.3rem; }
+        .footer-section p, .footer-section a { color: rgba(255,255,255,0.75); text-decoration: none; line-height: 1.9; transition: var(--transition); display: block; margin-bottom: 0.5rem; }
+        .footer-section a:hover { color: var(--accent-light); padding-left: 5px; }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { width: 45px; height: 45px; background: rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: var(--transition); }
+        .social-links a:hover { background: var(--accent); transform: translateY(-3px); padding-left: 0; }
+        .scroll-top { position: fixed; bottom: 2rem; right: 2rem; width: 55px; height: 55px; background: var(--gradient-primary); color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: 0 8px 25px rgba(232, 93, 4, 0.4); opacity: 0; visibility: hidden; transition: var(--transition); z-index: 999; }
+        .scroll-top.visible { opacity: 1; visibility: visible; }
+        .scroll-top:hover { transform: translateY(-5px) scale(1.05); }
+        .fade-in { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .about-image::before { display: none; }
+            .timeline::before { left: 20px; }
+            .timeline-item, .timeline-item:nth-child(even) { justify-content: flex-start; padding-right: 0; padding-left: 60px; }
+            .timeline-content::before, .timeline-item:nth-child(odd) .timeline-content::before, .timeline-item:nth-child(even) .timeline-content::before { left: -48px; right: auto; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { position: fixed; top: 80px; left: -100%; width: 100%; height: calc(100vh - 80px); background: var(--white); flex-direction: column; padding: 2rem; transition: var(--transition); box-shadow: var(--shadow); gap: 1rem; }
+            .nav-links.active { left: 0; }
+            .mobile-menu-btn { display: block; }
+            .hero { padding: 5rem 1.5rem; min-height: auto; }
+            .hero-stats { gap: 2rem; }
+            .hero-cta { flex-direction: column; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+            section { padding: 4rem 1.5rem; }
+            .modules-grid { grid-template-columns: 1fr; }
+            .objectives-grid { grid-template-columns: 1fr; }
+            .modal-content { margin: 1rem; }
+            .modal-header, .modal-body { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-icon">EEP</div>
+                <div>
+                    <div class="logo-text">EEP1</div>
+                    <div class="logo-sub">UCA Arquitectura</div>
+                </div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#fundamentacion">Fundamentación</a></li>
+                <li><a href="#contenidos">Módulos</a></li>
+                <li><a href="#herramientas">Herramientas</a></li>
+                <li><a href="#trayecto">Trayecto</a></li>
+                <li><a href="#objetivos">Objetivos</a></li>
+                <li><a href="#recursos">Recursos</a></li>
+                <li><a href="#galeria">Galería</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <span class="hero-badge"><i class="fas fa-graduation-cap"></i> Plan de Estudios 2023 - Facultad de Ingeniería y Ciencias Agrarias</span>
+            <h1>Exploración y <span>Experimentación</span> Proyectual I</h1>
+            <p class="hero-subtitle">Primera materia del eje proyectual de la carrera de Arquitectura</p>
+            <p class="hero-desc">Desarrollo de proyectos arquitectónicos con impacto en el mundo real. Creatividad, innovación y pensamiento lateral aplicados al diseño del hábitat humano. Una introducción transdisciplinar a la práctica proyectual.</p>
+            <div class="hero-cta">
+                <a href="#contenidos" class="btn-primary"><i class="fas fa-book-open"></i> Explorar Contenidos</a>
+                <a href="#fundamentacion" class="btn-secondary"><i class="fas fa-info-circle"></i> Conocer Más</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat"><span class="stat-number">160</span><span class="stat-label">Horas Reloj</span></div>
+                <div class="stat"><span class="stat-number">1°</span><span class="stat-label">Año Carrera</span></div>
+                <div class="stat"><span class="stat-number">12</span><span class="stat-label">Módulos</span></div>
+                <div class="stat"><span class="stat-number">∞</span><span class="stat-label">Posibilidades</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="fundamentacion">
+        <div class="about-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Contexto Académico</span>
+                <h2 class="section-title">Fundamentación de la Carrera</h2>
+                <p class="section-desc">La carrera de Arquitectura de la UCA se construye en el seno de la vida institucional de la Pontificia Universidad Católica Argentina.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-content fade-in">
+                    <h3>Una Formación Integral y Humanista</h3>
+                    <p>La carrera, con anclaje en la Facultad de Ingeniería y Ciencias Agrarias, orienta sus esfuerzos a la investigación, a la enseñanza y a la formación de estudiantes, con un <strong>fuerte compromiso social y con el ambiente</strong>.</p>
+                    <p>En el contexto de un mundo globalizado, caracterizado por desequilibrios sociales, calentamiento global, avances tecnológicos, digitalización e inteligencia artificial, la arquitectura del presente y del futuro abre un enorme campo exploratorio y de desarrollo productivo.</p>
+                    <p>La carrera se organiza como una <strong>red transdisciplinar de construcción estratégica de saberes</strong> que le permite al arquitecto actuar en procesos de diversa complejidad y escala.</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> Formación disciplinar y humanista integrada</li>
+                        <li><i class="fas fa-check-circle"></i> Enfoque transdisciplinario</li>
+                        <li><i class="fas fa-check-circle"></i> Compromiso social y ambiental</li>
+                        <li><i class="fas fa-check-circle"></i> Dos ejes principales: PENSAR y HACER</li>
+                    </ul>
+                </div>
+                <div class="about-image fade-in">
+                    <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800" alt="Arquitectura UCA">
+                </div>
+            </div>
+            <div class="highlight-box fade-in">
+                <p>"El Plan propone estrategias innovadoras que intentan poner en crisis la singularidad de los problemas específicos correspondientes a los saberes propios de la disciplina, ampliando la mirada y haciendo foco en perspectivas de trabajo transdisciplinares."</p>
+            </div>
+            <div class="info-cards fade-in">
+                <div class="info-card"><div class="info-card-icon"><i class="fas fa-clock"></i></div><div class="info-card-title">Duración</div><div class="info-card-value">5</div><div class="info-card-desc">Años de carrera</div></div>
+                <div class="info-card"><div class="info-card-icon"><i class="fas fa-hourglass-half"></i></div><div class="info-card-title">Carga Horaria</div><div class="info-card-value">3920</div><div class="info-card-desc">Horas reloj totales</div></div>
+                <div class="info-card"><div class="info-card-icon"><i class="fas fa-book"></i></div><div class="info-card-title">Asignaturas</div><div class="info-card-value">38</div><div class="info-card-desc">Disciplinares obligatorias</div></div>
+                <div class="info-card"><div class="info-card-icon"><i class="fas fa-certificate"></i></div><div class="info-card-title">Título</div><div class="info-card-value">Arq.</div><div class="info-card-desc">Arquitecto/a</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contenidos">
+        <div class="section-header fade-in">
+            <span class="section-tag">Programa Académico</span>
+            <h2 class="section-title">Módulos de Contenidos</h2>
+            <p class="section-desc">Estructura completa de la asignatura organizada por áreas de conocimiento y competencias a desarrollar. Cada módulo representa un pilar fundamental en la formación proyectual inicial.</p>
+        </div>
+        <div class="modules-grid">
+            <div class="module-card fade-in" onclick="openModal('modal1')">
+                <div class="module-image"><img src="https://images.adsttc.com/media/images/640f/0914/a207/ca01/70eb/ff7b/medium_jpg/the-phenomenology-of-light-in-contemporary-religious-architecture_1.jpg?1678706971" alt="Filosofía del Habitar"><div class="module-icon"><i class="fas fa-home"></i></div></div>
+                <div class="module-content"><div class="module-number">MÓDULO 01</div><h3 class="module-title">Filosofía del Habitar</h3><p class="module-desc">Construir, Habitar, Pensar. Espacio y Tiempo. Los grados de intimidad y la escala humana. Reflexión filosófica sobre el acto de habitar.</p><div class="module-topics"><span class="topic-tag">Espacio</span><span class="topic-tag">Tiempo</span><span class="topic-tag">Intimidad</span><span class="topic-tag">Escala</span></div></div>
+            </div>
+            <div class="module-card fade-in" onclick="openModal('modal2')">
+                <div class="module-image"><img src="https://bs-uploads.toptal.io/blackfish-uploads/uploaded_file/file/176575/image-1580596193043-6857aefcd5ac065817877a1ec84fd3fc.png" alt="Creatividad e Innovación"><div class="module-icon"><i class="fas fa-lightbulb"></i></div></div>
+                <div class="module-content"><div class="module-number">MÓDULO 02</div><h3 class="module-title">Creatividad e Innovación</h3><p class="module-desc">Psicología y creatividad. Bases psicobiológicas. Ritmos cerebrales y el hemisferio derecho. El estado creativo y sus bloqueos.</p><div class="module-topics"><span class="topic-tag">Psicología</span><span class="topic-tag">Neurociencia</span><span class="topic-tag">Estado Creativo</span></div></div>
+            </div>
+            <div class="module-card fade-in" onclick="openModal('modal3')">
+                <div class="module-image"><img src="https://s3.amazonaws.com/architecture-org/files/resources/design-process-chart.png" alt="Técnicas Creativas"><div class="module-icon"><i class="fas fa-brain"></i></div></div>
+                <div class="module-content"><div class="module-number">MÓDULO 03</div><h3 class="module-title">Técnicas de Generación de Ideas</h3><p class="module-desc">Brainstorming, Brainwriting, Mindmaps, SCAMPER, PNI, Los 6 Sombreros y TRIZ. Herramientas prácticas para la creatividad.</p><div class="module-topics"><span class="topic-tag">Brainstorming</span><span class="topic-tag">Mindmaps</span><span class="topic-tag">SCAMPER</span><span class="topic-tag">TRIZ</span></div></div>
+            </div>
+            <div class="module-card fade-in" onclick="openModal('modal4')">
+                <div class="module-image"><img src="https://www.rjmodels.com.hk/wp-content/uploads/2024/11/18.-Nan-Jing-International-Financial-White-Architectural-Model-by-KPF.jpg" alt="Resolución Proyectual"><div class="module-icon"><i class="fas fa-drafting-compass"></i></div></div>
+                <div class="module-content"><div class="module-number">MÓDULO 04</div><h3 class="module-title">Resolución Proyectual</h3><p class="module-desc">Desarrollo de proyectos de complejidad baja. Anteproyecto, variables espaciales y contexto. Estrategias de abordaje proyectual.</p><div class="module-topics"><span class="topic-tag">Anteproyecto</span><span class="topic-tag">Contexto</span><span class="topic-tag">Escala</span><span class="topic-tag">Variables</span></div></div>
+            </div>
+            <div class="module-card fade-in" onclick="openModal('modal5')">
+                <div class="module-image"><img src="https://content.arquitecturaydiseno.es/medio/2020/07/29/la-vivienda-de-formas-aerodinamicas-lleva-su-relacion-con-el-agua-a-otro-nivel-de-la-mano-del-arquitecto-frances-david-tajchman-43692def-1500x871_87fab854_1200x630.jpg" alt="Campos de Acción"><div class="module-icon"><i class="fas fa-layer-group"></i></div></div>
+                <div class="module-content"><div class="module-number">MÓDULO 05</div><h3 class="module-title">Campos de Acción</h3><p class="module-desc">Orden, Flujos, Límites, Gravedad, Materia y Energía. Campos tangibles e intangibles que configuran el proyecto arquitectónico.</p><div class="module-topics"><span class="topic-tag">Orden</span><span class="topic-tag">Flujos</span><span class="topic-tag">Materia</span><span class="topic-tag">Energía</span></div></div>
+            </div>
+            <div class="module-card fade-in" onclick="openModal('modal6')">
+                <div class="module-image"><img src="https://www.metalocus.es/sites/default/files/styles/mopis_news_gallery_first_deskop/public/ml_Drawings%20and%20models_13_A%20Siza_Theatre%20Montreuil_2002_700.png?itok=-NS7d8TX" alt="Análisis Crítico"><div class="module-icon"><i class="fas fa-search"></i></div></div>
+                <div class="module-content"><div class="module-number">MÓDULO 06</div><h3 class="module-title">Análisis y Crítica</h3><p class="module-desc">Estudio de casos referentes. Rigurosidad de análisis. Aprendizajes en entornos reales. Desarrollo del pensamiento crítico.</p><div class="module-topics"><span class="topic-tag">Casos</span><span class="topic-tag">Análisis</span><span class="topic-tag">Crítica</span></div></div>
+            </div>
+            <div class="module-card fade-in" onclick="openModal('modal7')">
+                <div class="module-image"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600" alt="Pensamiento Lateral"><div class="module-icon"><i class="fas fa-arrows-alt"></i></div></div>
+                <div class="module-content"><div class="module-number">MÓDULO 07</div><h3 class="module-title">Pensamiento Lateral</h3><p class="module-desc">Saber ver. Datos e información. El croquis preliminar como herramienta de pensamiento. Interpretación de necesidades.</p><div class="module-topics"><span class="topic-tag">Observación</span><span class="topic-tag">Croquis</span><span class="topic-tag">Interpretación</span></div></div>
+            </div>
+            <div class="module-card fade-in" onclick="openModal('modal8')">
+                <div class="module-image"><img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=600" alt="El Cuerpo de las Ideas"><div class="module-icon"><i class="fas fa-cube"></i></div></div>
+                <div class="module-content"><div class="module-number">MÓDULO 08</div><h3 class="module-title">El Cuerpo de las Ideas</h3><p class="module-desc">Materialización del concepto. De la idea al objeto. Procesos de transformación y representación física del pensamiento proyectual.</p><div class="module-topics"><span class="topic-tag">Materialidad</span><span class="topic-tag">Modelos</span><span class="topic-tag">Prototipos</span></div></div>
+            </div>
+            <div class="module-card fade-in" onclick="openModal('modal9')">
+                <div class="module-image"><img src="https://images.unsplash.com/photo-1448630360428-65456885c650?w=600" alt="Contexto y Entorno"><div class="module-icon"><i class="fas fa-map-marked-alt"></i></div></div>
+                <div class="module-content"><div class="module-number">MÓDULO 09</div><h3 class="module-title">Contexto y Entorno</h3><p class="module-desc">Definición de entorno. Variables de escala, normativas y complejidades. La escala humana y la escala territorial.</p><div class="module-topics"><span class="topic-tag">Territorio</span><span class="topic-tag">Normativa</span><span class="topic-tag">Escala</span></div></div>
+            </div>
+            <div class="module-card fade-in" onclick="openModal('modal10')">
+                <div class="module-image"><img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600" alt="Estrategias Proyectuales"><div class="module-icon"><i class="fas fa-chess"></i></div></div>
+                <div class="module-content"><div class="module-number">MÓDULO 10</div><h3 class="module-title">Estrategias Proyectuales</h3><p class="module-desc">Exploración, Aproximación y Determinación. Tectónica como estrategia. Procesos de innovación en arquitectura.</p><div class="module-topics"><span class="topic-tag">Estrategia</span><span class="topic-tag">Tectónica</span><span class="topic-tag">Innovación</span></div></div>
+            </div>
+            <div class="module-card fade-in" onclick="openModal('modal11')">
+                <div class="module-image"><img src="https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=600" alt="Procesos de Innovación"><div class="module-icon"><i class="fas fa-rocket"></i></div></div>
+                <div class="module-content"><div class="module-number">MÓDULO 11</div><h3 class="module-title">Procesos de Innovación</h3><p class="module-desc">Metodologías de innovación aplicadas a la arquitectura. Desarrollo de proyectos con impacto en el mundo real.</p><div class="module-topics"><span class="topic-tag">Metodología</span><span class="topic-tag">Impacto</span><span class="topic-tag">Desarrollo</span></div></div>
+            </div>
+            <div class="module-card fade-in" onclick="openModal('modal12')">
+                <div class="module-image"><img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=600" alt="Integración y Síntesis"><div class="module-icon"><i class="fas fa-puzzle-piece"></i></div></div>
+                <div class="module-content"><div class="module-number">MÓDULO 12</div><h3 class="module-title">Integración y Síntesis</h3><p class="module-desc">Síntesis de los aprendizajes del cuatrimestre. Presentación de proyectos integradores. Evaluación del proceso creativo.</p><div class="module-topics"><span class="topic-tag">Síntesis</span><span class="topic-tag">Proyecto</span><span class="topic-tag">Evaluación</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tools-section" id="herramientas">
+        <div class="tools-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Metodología</span>
+                <h2 class="section-title">Herramientas Creativas</h2>
+                <p class="section-desc">Técnicas específicas para potenciar la creatividad y la resolución de problemas proyectuales. Metodologías probadas para la generación de ideas innovadoras.</p>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-card fade-in"><div class="tool-icon"><i class="fas fa-comments"></i></div><h3 class="tool-name">Brainstorming</h3><p class="tool-desc">Tormenta de ideas para generación masiva de conceptos sin censura inicial. Fomenta la producción libre de asociaciones creativas.</p></div>
+                <div class="tool-card fade-in"><div class="tool-icon"><i class="fas fa-pen-fancy"></i></div><h3 class="tool-name">Brainwriting</h3><p class="tool-desc">Escritura de ideas en silencio para luego compartir y combinar propuestas. Ideal para equipos introvertidos.</p></div>
+                <div class="tool-card fade-in"><div class="tool-icon"><i class="fas fa-project-diagram"></i></div><h3 class="tool-name">Mindmaps</h3><p class="tool-desc">Mapas mentales para organizar información y establecer conexiones conceptuales. Visualización radial del conocimiento.</p></div>
+                <div class="tool-card fade-in"><div class="tool-icon"><i class="fas fa-random"></i></div><h3 class="tool-name">SCAMPER</h3><p class="tool-desc">Sustituir, Combinar, Adaptar, Modificar, Poner en otros usos, Eliminar, Reordenar. Siete verbos para la innovación.</p></div>
+                <div class="tool-card fade-in"><div class="tool-icon"><i class="fas fa-plus-minus"></i></div><h3 class="tool-name">PNI</h3><p class="tool-desc">Análisis de aspectos Positivos, Negativos e Interesantes de una propuesta. Evaluación balanceada de ideas.</p></div>
+                <div class="tool-card fade-in"><div class="tool-icon"><i class="fas fa-hat-wizard"></i></div><h3 class="tool-name">6 Sombreros</h3><p class="tool-desc">Técnica de Edward de Bono para analizar problemas desde seis perspectivas diferentes. Pensamiento paralelo.</p></div>
+                <div class="tool-card fade-in"><div class="tool-icon"><i class="fas fa-link"></i></div><h3 class="tool-name">Analogías</h3><p class="tool-desc">Transferencia de soluciones desde dominios fuente a dominios meta. Aprendizaje desde lo conocido.</p></div>
+                <div class="tool-card fade-in"><div class="tool-icon"><i class="fas fa-cogs"></i></div><h3 class="tool-name">TRIZ</h3><p class="tool-desc">Teoría para Resolver Problemas de Inventiva. Metodología sistemática de innovación tecnológica.</p></div>
+                <div class="tool-card fade-in"><div class="tool-icon"><i class="fas fa-users"></i></div><h3 class="tool-name">Método 635</h3><p class="tool-desc">6 personas, 3 ideas, 5 minutos. Técnica estructurada de generación colaborativa de ideas.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="career-section" id="trayecto">
+        <div class="career-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Plan de Estudios</span>
+                <h2 class="section-title">Trayecto Formativo</h2>
+                <p class="section-desc">La carrera está organizada en tres instancias formativas que articulan los ejes del PENSAR y el HACER.</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-year">AÑOS 1-2</div>
+                        <h3 class="timeline-title">Instancia Inmersiva</h3>
+                        <p class="timeline-desc">Internalización de conocimientos, capacidades básicas e instrumentales. Ampliación del horizonte de reflexión disciplinar. Fundamentos teóricos y prácticos iniciales.</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-year">AÑOS 3-4</div>
+                        <h3 class="timeline-title">Instancia de Profundización</h3>
+                        <p class="timeline-desc">Intensificación de la formación disciplinar en el campo proyectual-tecnológico. Desarrollo de proyectos de complejidad media y media-alta.</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-year">AÑO 5</div>
+                        <h3 class="timeline-title">Instancia Profesional</h3>
+                        <p class="timeline-desc">Completa y valida la formación integrada de competencias profesionales. Verificación de capacidades para la resolución de situaciones problemáticas del hábitat humano.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="objectives-section" id="objetivos">
+        <div class="objectives-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Competencias</span>
+                <h2 class="section-title">Objetivos de la Carrera</h2>
+                <p class="section-desc">Al egresar como Arquitectos/as, los graduados habrán adquirido las siguientes competencias profesionales.</p>
+            </div>
+            <div class="objectives-grid">
+                <div class="objective-card fade-in"><div class="objective-icon"><i class="fas fa-search-location"></i></div><h3 class="objective-title">Exploración Territorial</h3><p class="objective-desc">Explorar y comprender los campos multi-información superpuestos que determinan las acciones humanas en el territorio.</p></div>
+                <div class="objective-card fade-in"><div class="objective-icon"><i class="fas fa-drafting-compass"></i></div><h3 class="objective-title">Diseño Estratégico</h3><p class="objective-desc">Diseñar estrategias convergentes y divergentes (no lineales) en un campo transdisciplinar mediante modelos de exploración y experimentación.</p></div>
+                <div class="objective-card fade-in"><div class="objective-icon"><i class="fas fa-building"></i></div><h3 class="objective-title">Proyecto y Construcción</h3><p class="objective-desc">Proyectar y construir espacios destinados al hábitat humano, aplicando técnicas y teorías de proyecto en todas sus escalas.</p></div>
+                <div class="objective-card fade-in"><div class="objective-icon"><i class="fas fa-users-cog"></i></div><h3 class="objective-title">Trabajo en Equipo</h3><p class="objective-desc">Implementar el desarrollo de proyectos en equipos transdisciplinares, entendiendo sus lógicas y especificidades internas.</p></div>
+                <div class="objective-card fade-in"><div class="objective-icon"><i class="fas fa-tasks"></i></div><h3 class="objective-title">Gestión y Dirección</h3><p class="objective-desc">Dirigir y controlar nuevos modelos de gestión que permitan desarrollar, sistematizar y socializar protocolos y procedimientos.</p></div>
+                <div class="objective-card fade-in"><div class="objective-icon"><i class="fas fa-lightbulb"></i></div><h3 class="objective-title">Innovación</h3><p class="objective-desc">Producir investigaciones imaginando escenarios futuros, variables y cambiantes, que permitan la generación de proyectos dinámicos.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="resources-section" id="recursos">
+        <div class="resources-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Material de Estudio</span>
+                <h2 class="section-title">Recursos Académicos</h2>
+                <p class="section-desc">Material complementario para profundizar en los contenidos de la asignatura y desarrollar las competencias proyectuales.</p>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-card fade-in"><div class="resource-icon"><i class="fas fa-book"></i></div><h3 class="resource-title">Bibliografía Básica</h3><p class="resource-desc">Textos fundamentales sobre teoría del proyecto, creatividad y metodologías de diseño arquitectónico.</p></div>
+                <div class="resource-card fade-in"><div class="resource-icon"><i class="fas fa-video"></i></div><h3 class="resource-title">Videolecciones</h3><p class="resource-desc">Clases grabadas, conferencias de arquitectos invitados y documentales sobre arquitectura contemporánea.</p></div>
+                <div class="resource-card fade-in"><div class="resource-icon"><i class="fas fa-pencil-ruler"></i></div><h3 class="resource-title">Ejercicios Prácticos</h3><p class="resource-desc">Consignas de trabajos, guías de ejercicios y propuestas de experimentación proyectual.</p></div>
+                <div class="resource-card fade-in"><div class="resource-icon"><i class="fas fa-images"></i></div><h3 class="resource-title">Banco de Imágenes</h3><p class="resource-desc">Referencias visuales, obras de arquitectura, detalles constructivos y casos de estudio.</p></div>
+                <div class="resource-card fade-in"><div class="resource-icon"><i class="fas fa-cube"></i></div><h3 class="resource-title">Modelos 3D</h3><p class="resource-desc">Archivos digitales de referencia, modelos paramétricos y recursos para fabricación digital.</p></div>
+                <div class="resource-card fade-in"><div class="resource-icon"><i class="fas fa-link"></i></div><h3 class="resource-title">Enlaces de Interés</h3><p class="resource-desc">Sitios web de arquitectura, revistas digitales, museos y plataformas de referencia internacional.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria">
+        <div class="section-header fade-in">
+            <span class="section-tag">Inspiración</span>
+            <h2 class="section-title">Galería de Referencias</h2>
+            <p class="section-desc">Obras de arquitectura contemporánea que ilustran los conceptos desarrollados en la materia.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item fade-in"><img src="https://images.adsttc.com/media/images/5d44/14fa/284d/d1e6/4a00/0033/large_jpg/feature_-_Main.jpg?1564742901" alt="Casa de la Música"><div class="gallery-overlay"><div class="gallery-title">Casa da Música</div><div class="gallery-category">OMA - Rem Koolhaas</div></div></div>
+            <div class="gallery-item fade-in"><img src="https://images.adsttc.com/media/images/5c66/eb2f/284d/d1c7/1500/00a3/large_jpg/01_-'M9A9527.jpg?1550241544" alt="Museo de Arte"><div class="gallery-overlay"><div class="gallery-title">Louis Vuitton Foundation</div><div class="gallery-category">Gehry Partners</div></div></div>
+            <div class="gallery-item fade-in"><img src="https://images.adsttc.com/media/images/5e4c/102f/6ee6/7e0b/9d00/087d/large_jpg/feature_-_Main.jpg?1582019611" alt="Centro Cultural"><div class="gallery-overlay"><div class="gallery-title">Tate Modern</div><div class="gallery-category">Herzog & de Meuron</div></div></div>
+            <div class="gallery-item fade-in"><img src="https://images.adsttc.com/media/images/5c18/0d4f/284d/d189/4f00/00be/large_jpg/-_Photo_02.jpg?1545091406" alt="Biblioteca"><div class="gallery-overlay"><div class="gallery-title">Biblioteca Tianjin</div><div class="gallery-category">MVRDV</div></div></div>
+            <div class="gallery-item fade-in"><img src="https://images.adsttc.com/media/images/5c73/82f2/284d/d1f3/b500/00e9/large_jpg/02._Museu_da_M%C3%BAsica_da_Bahia_-_Foto_©_Leon_Koerich_(10).jpg?1551108847" alt="Museo"><div class="gallery-overlay"><div class="gallery-title">Museo de la Música</div><div class="gallery-category">Brasil - Arquitectura Local</div></div></div>
+            <div class="gallery-item fade-in"><img src="https://images.adsttc.com/media/images/5c5c/ebf5/284d/d1db/6900/00d6/large_jpg/01.jpg?1549550589" alt="Auditorio"><div class="gallery-overlay"><div class="gallery-title">Elbphilharmonie</div><div class="gallery-category">Herzog & de Meuron</div></div></div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>UCA Arquitectura</h3>
+                <p>Facultad de Ingeniería y Ciencias Agrarias</p>
+                <p>Alicia Moreau de Justo 1500</p>
+                <p>Ciudad Autónoma de Buenos Aires</p>
+                <p>Tel: 0810-2200-822</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <a href="#inicio">Inicio</a>
+                <a href="#fundamentacion">Fundamentación</a>
+                <a href="#contenidos">Módulos</a>
+                <a href="#herramientas">Herramientas</a>
+                <a href="#trayecto">Trayecto</a>
+            </div>
+            <div class="footer-section">
+                <h3>Recursos</h3>
+                <a href="#">Biblioteca Digital</a>
+                <a href="#">Campus Virtual</a>
+                <a href="#">Calendario Académico</a>
+                <a href="#">Reglamentos</a>
+                <a href="#">Trabajos Prácticos</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto Docente</h3>
+                <p>Consultas sobre contenidos, ejercicios y evaluaciones.</p>
+                <a href="mailto:arquitectura@uca.edu.ar">arquitectura@uca.edu.ar</a>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">Horario de consulta: Lunes y Miércoles de 14 a 16 hs.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Universidad Católica Argentina. Todos los derechos reservados.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Plan de Estudios 2023 - Carrera de Arquitectura</p>
+        </div>
+    </footer>
+
+    <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Modals -->
+    <div class="modal" id="modal1">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group"><div class="modal-subtitle">Módulo 01</div><h2 class="modal-title">Filosofía del Habitar</h2></div>
+                <button class="modal-close" onclick="closeModal('modal1')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-book"></i> Contenidos</h3>
+                    <ul class="content-list">
+                        <li>Construir, Habitar, Pensar - La tríada fundamental de la arquitectura según Heidegger</li>
+                        <li>Espacio y Tiempo - Dimensiones fundamentales del habitar humano</li>
+                        <li>Los grados de intimidad - De lo público a lo privado</li>
+                        <li>La escala humana - Proporción y medida en arquitectura</li>
+                        <li>La escala territorial - Relación entre el cuerpo y el territorio</li>
+                        <li>Filosofía del espacio habitable - Reflexión fenomenológica</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-bullseye"></i> Objetivos de Aprendizaje</h3>
+                    <ul class="content-list">
+                        <li>Comprender el significado filosófico del habitar como acto humano fundamental</li>
+                        <li>Reconocer las diferentes escalas de intervención arquitectónica</li>
+                        <li>Analizar las relaciones entre espacio, tiempo y experiencia</li>
+                        <li>Desarrollar sensibilidad hacia las cualidades espaciales de la arquitectura</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-tasks"></i> Actividades Prácticas</h3>
+                    <ul class="content-list">
+                        <li>Análisis de espacios de intimidad progresiva</li>
+                        <li>Ejercicios de representación de la escala humana</li>
+                        <li>Registro fotográfico de situaciones de habitar</li>
+                        <li>Mapa conceptual de las dimensiones del habitar</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal2">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group"><div class="modal-subtitle">Módulo 02</div><h2 class="modal-title">Creatividad e Innovación</h2></div>
+                <button class="modal-close" onclick="closeModal('modal2')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-book"></i> Contenidos</h3>
+                    <ul class="content-list">
+                        <li>Psicología y creatividad - Bases teóricas del pensamiento creativo</li>
+                        <li>Bases psicobiológicas de la creatividad - Funcionamiento cerebral</li>
+                        <li>Ritmos cerebrales - Estados de conciencia y creatividad</li>
+                        <li>El hemisferio derecho - Pensamiento intuitivo y holístico</li>
+                        <li>La creatividad como estado - Condiciones para el flujo creativo</li>
+                        <li>Censura y bloqueos - Bloqueos perceptuales, culturales y emocionales</li>
+                        <li>Las cualidades de la creación - Originalidad, fluidez, flexibilidad</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-bullseye"></i> Objetivos de Aprendizaje</h3>
+                    <ul class="content-list">
+                        <li>Comprender los mecanismos psicobiológicos de la creatividad</li>
+                        <li>Identificar los propios bloqueos creativos</li>
+                        <li>Desarrollar estrategias para acceder al estado creativo</li>
+                        <li>Fomentar el pensamiento divergente y lateral</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-tasks"></i> Actividades Prácticas</h3>
+                    <ul class="content-list">
+                        <li>Ejercicios de fluidez ideacional</li>
+                        <li>Test de creatividad y autoconocimiento</li>
+                        <li>Técnicas de relajación para el estado creativo</li>
+                        <li>Diario de bloqueos y superaciones creativas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal3">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group"><div class="modal-subtitle">Módulo 03</div><h2 class="modal-title">Técnicas de Generación de Ideas</h2></div>
+                <button class="modal-close" onclick="closeModal('modal3')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-book"></i> Contenidos</h3>
+                    <ul class="content-list">
+                        <li>Brainstorming - Tormenta de ideas clásica</li>
+                        <li>Brainwriting - Escritura de ideas en grupo</li>
+                        <li>Mindmaps - Mapas mentales y organización conceptual</li>
+                        <li>SCAMPER - Sustituir, Combinar, Adaptar, Modificar, Poner en otros usos, Eliminar, Reordenar</li>
+                        <li>PNI - Análisis de aspectos Positivos, Negativos e Interesantes</li>
+                        <li>Los 6 Sombreros de Bono - Pensamiento paralelo</li>
+                        <li>TRIZ - Teoría para Resolver Problemas de Inventiva</li>
+                        <li>4x4x4 - Método de generación estructurada</li>
+                        <li>CRE-IN - Estimulación de emociones profundas</li>
+                        <li>DO IT - Definir, Abrir, Identificar y Transformar</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-bullseye"></i> Objetivos de Aprendizaje</h3>
+                    <ul class="content-list">
+                        <li>Dominar diversas técnicas de generación de ideas</li>
+                        <li>Seleccionar la técnica apropiada según el tipo de problema</li>
+                        <li>Aplicar las técnicas en equipos de trabajo</li>
+                        <li>Evaluar críticamente los resultados de cada técnica</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-tasks"></i> Actividades Prácticas</h3>
+                    <ul class="content-list">
+                        <li>Talleres de aplicación de cada técnica</li>
+                        <li>Resolución de problemas arquitectónicos con diferentes métodos</li>
+                        <li>Comparación de resultados entre técnicas</li>
+                        <li>Creación de un manual personal de técnicas preferidas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal4">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group"><div class="modal-subtitle">Módulo 04</div><h2 class="modal-title">Resolución Proyectual</h2></div>
+                <button class="modal-close" onclick="closeModal('modal4')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-book"></i> Contenidos</h3>
+                    <ul class="content-list">
+                        <li>Desarrollo de proyectos de complejidad baja</li>
+                        <li>Concepto de anteproyecto - Etapas iniciales del proyecto</li>
+                        <li>Las variables espaciales - Configuración y organización</li>
+                        <li>Resolución proyectual en relación al contexto</li>
+                        <li>Aprendizajes surgidos en entornos reales</li>
+                        <li>Definición de entorno - Análisis situacional</li>
+                        <li>Rigurosidad de análisis - Métodos y procedimientos</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-bullseye"></i> Objetivos de Aprendizaje</h3>
+                    <ul class="content-list">
+                        <li>Comprender el proceso completo de resolución proyectual</li>
+                        <li>Desarrollar proyectos de baja complejidad</li>
+                        <li>Relacionar el proyecto con su contexto</li>
+                        <li>Aplicar criterios de rigurosidad en el análisis</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-tasks"></i> Actividades Prácticas</h3>
+                    <ul class="content-list">
+                        <li>Desarrollo de un anteproyecto arquitectónico</li>
+                        <li>Análisis de contexto de un sitio real</li>
+                        <li>Representación de variables espaciales</li>
+                        <li>Presentación de propuesta proyectual</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal5">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group"><div class="modal-subtitle">Módulo 05</div><h2 class="modal-title">Campos de Acción</h2></div>
+                <button class="modal-close" onclick="closeModal('modal5')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-book"></i> Contenidos</h3>
+                    <ul class="content-list">
+                        <li>Orden - Principios de organización espacial</li>
+                        <li>Flujos - Circulaciones y movimiento</li>
+                        <li>Límites - Fronteras y delimitaciones</li>
+                        <li>Gravedad - Fuerza y contrafuerza en arquitectura</li>
+                        <li>Materia - Propiedades y posibilidades</li>
+                        <li>Energía - Luz, calor y recursos</li>
+                        <li>Campos tangibles - Elementos físicos del proyecto</li>
+                        <li>Campos intangibles - Percepción y significado</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-bullseye"></i> Objetivos de Aprendizaje</h3>
+                    <ul class="content-list">
+                        <li>Identificar los diferentes campos de acción de la arquitectura</li>
+                        <li>Comprender las interrelaciones entre campos</li>
+                        <li>Aplicar el conocimiento de campos en el proyecto</li>
+                        <li>Distinguir entre aspectos tangibles e intangibles</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-tasks"></i> Actividades Prácticas</h3>
+                    <ul class="content-list">
+                        <li>Análisis de campos en obras de referencia</li>
+                        <li>Ejercicios de orden y composición espacial</li>
+                        <li>Estudio de flujos en edificios existentes</li>
+                        <li>Proyecto integrando múltiples campos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal6">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group"><div class="modal-subtitle">Módulo 06</div><h2 class="modal-title">Análisis y Crítica</h2></div>
+                <button class="modal-close" onclick="closeModal('modal6')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-book"></i> Contenidos</h3>
+                    <ul class="content-list">
+                        <li>Estudio de casos referentes - Obras paradigmáticas</li>
+                        <li>Rigurosidad de análisis - Métodos y criterios</li>
+                        <li>Aprendizajes en entornos reales - Observación directa</li>
+                        <li>Desarrollo del pensamiento crítico - Argumentación</li>
+                        <li>Crítica constructiva - De la observación a la mejora</li>
+                        <li>Protocolos de análisis arquitectónico</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-bullseye"></i> Objetivos de Aprendizaje</h3>
+                    <ul class="content-list">
+                        <li>Desarrollar capacidad de análisis arquitectónico riguroso</li>
+                        <li>Formular juicios críticos fundamentados</li>
+                        <li>Aprender de obras de referencia</li>
+                        <li>Comunicar críticas de manera constructiva</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-tasks"></i> Actividades Prácticas</h3>
+                    <ul class="content-list">
+                        <li>Análisis detallado de una obra de referencia</li>
+                        <li>Visitas de estudio a edificios significativos</li>
+                        <li>Elaboración de fichas de análisis crítico</li>
+                        <li>Debates y discusiones grupales</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal7">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group"><div class="modal-subtitle">Módulo 07</div><h2 class="modal-title">Pensamiento Lateral</h2></div>
+                <button class="modal-close" onclick="closeModal('modal7')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-book"></i> Contenidos</h3>
+                    <ul class="content-list">
+                        <li>Saber ver - Desarrollo de la mirada proyectual</li>
+                        <li>Datos e información - Diferencias y relaciones</li>
+                        <li>El croquis preliminar - Herramienta de pensamiento</li>
+                        <li>Interpretación de necesidades - Del programa al proyecto</li>
+                        <li>Pensamiento lateral vs. pensamiento vertical</li>
+                        <li>Técnicas de provocación creativa</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-bullseye"></i> Objetivos de Aprendizaje</h3>
+                    <ul class="content-list">
+                        <li>Desarrollar la capacidad de observación proyectual</li>
+                        <li>Distinguir entre datos brutos e información útil</li>
+                        <li>Utilizar el croquis como herramienta de pensamiento</li>
+                        <li>Aplicar el pensamiento lateral a problemas arquitectónicos</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-tasks"></i> Actividades Prácticas</h3>
+                    <ul class="content-list">
+                        <li>Ejercicios de observación y registro gráfico</li>
+                        <li>Croquis en situación de campo</li>
+                        <li>Interpretación de programas de necesidades</li>
+                        <li>Resolución de problemas mediante pensamiento lateral</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal8">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group"><div class="modal-subtitle">Módulo 08</div><h2 class="modal-title">El Cuerpo de las Ideas</h2></div>
+                <button class="modal-close" onclick="closeModal('modal8')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-book"></i> Contenidos</h3>
+                    <ul class="content-list">
+                        <li>Materialización del concepto - De la idea al objeto</li>
+                        <li>Procesos de transformación - Evolución del proyecto</li>
+                        <li>Representación física del pensamiento proyectual</li>
+                        <li>El modelo como herramienta de exploración</li>
+                        <li>La maqueta - Tipos y técnicas</li>
+                        <li>Prototipado rápido - Iteración y prueba</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-bullseye"></i> Objetivos de Aprendizaje</h3>
+                    <ul class="content-list">
+                        <li>Comprender la importancia de la materialización de ideas</li>
+                        <li>Desarrollar habilidades de modelado y prototipado</li>
+                        <li>Utilizar el modelo como herramienta de pensamiento</li>
+                        <li>Iterar y refinar propuestas mediante prototipos</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-tasks"></i> Actividades Prácticas</h3>
+                    <ul class="content-list">
+                        <li>Construcción de modelos conceptuales</li>
+                        <li>Taller de técnicas de maquetado</li>
+                        <li>Prototipado de detalles constructivos</li>
+                        <li>Presentación de modelos y explicación de conceptos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal9">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group"><div class="modal-subtitle">Módulo 09</div><h2 class="modal-title">Contexto y Entorno</h2></div>
+                <button class="modal-close" onclick="closeModal('modal9')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-book"></i> Contenidos</h3>
+                    <ul class="content-list">
+                        <li>Definición de entorno - Conceptos y alcances</li>
+                        <li>Variables de escala - Desde el objeto al territorio</li>
+                        <li>Normativas aplicables - Códigos y reglamentos</li>
+                        <li>Complejidades del contexto - Análisis sistémico</li>
+                        <li>La escala humana - Dimensiones antropométricas</li>
+                        <li>La escala territorial - Relación con el entorno</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-bullseye"></i> Objetivos de Aprendizaje</h3>
+                    <ul class="content-list">
+                        <li>Comprender el concepto de entorno en arquitectura</li>
+                        <li>Identificar las variables que condicionan un proyecto</li>
+                        <li>Reconocer las diferentes escalas de intervención</li>
+                        <li>Aplicar conocimientos normativos básicos</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-tasks"></i> Actividades Prácticas</h3>
+                    <ul class="content-list">
+                        <li>Análisis de contexto de un lote real</li>
+                        <li>Relevamiento normativo de un barrio</li>
+                        <li>Estudio de escalas en edificios de referencia</li>
+                        <li>Propuesta proyectual contextualizada</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal10">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group"><div class="modal-subtitle">Módulo 10</div><h2 class="modal-title">Estrategias Proyectuales</h2></div>
+                <button class="modal-close" onclick="closeModal('modal10')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-book"></i> Contenidos</h3>
+                    <ul class="content-list">
+                        <li>Exploración - Búsqueda y descubrimiento</li>
+                        <li>Aproximación - Acercamiento al problema</li>
+                        <li>Determinación - Toma de decisiones proyectuales</li>
+                        <li>Tectónica como estrategia - Materia y construcción</li>
+                        <li>Procesos de innovación en arquitectura</li>
+                        <li>Estrategias de abordaje proyectual</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-bullseye"></i> Objetivos de Aprendizaje</h3>
+                    <ul class="content-list">
+                        <li>Comprender las diferentes estrategias de proyecto</li>
+                        <li>Seleccionar estrategias según el tipo de problema</li>
+                        <li>Desarrollar una postura proyectual personal</li>
+                        <li>Innovar en el proceso de diseño</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-tasks"></i> Actividades Prácticas</h3>
+                    <ul class="content-list">
+                        <li>Análisis de estrategias en obras de referencia</li>
+                        <li>Ejercicios de exploración proyectual</li>
+                        <li>Desarrollo de propuesta con estrategia definida</li>
+                        <li>Defensa y justificación de decisiones</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal11">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group"><div class="modal-subtitle">Módulo 11</div><h2 class="modal-title">Procesos de Innovación</h2></div>
+                <button class="modal-close" onclick="closeModal('modal11')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-book"></i> Contenidos</h3>
+                    <ul class="content-list">
+                        <li>Metodologías de innovación aplicadas a la arquitectura</li>
+                        <li>Desarrollo de proyectos con impacto en el mundo real</li>
+                        <li>Innovación tecnológica en el proyecto</li>
+                        <li>Innovación social y comunitaria</li>
+                        <li>Innovación sustentable</li>
+                        <li>Procesos de validación de innovaciones</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-bullseye"></i> Objetivos de Aprendizaje</h3>
+                    <ul class="content-list">
+                        <li>Comprender los diferentes tipos de innovación en arquitectura</li>
+                        <li>Aplicar metodologías de innovación a proyectos</li>
+                        <li>Desarrollar proyectos con impacto real</li>
+                        <li>Evaluar la innovación de propuestas</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-tasks"></i> Actividades Prácticas</h3>
+                    <ul class="content-list">
+                        <li>Análisis de casos de innovación arquitectónica</li>
+                        <li>Taller de design thinking aplicado</li>
+                        <li>Desarrollo de propuesta innovadora</li>
+                        <li>Presentación de impacto del proyecto</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal12">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group"><div class="modal-subtitle">Módulo 12</div><h2 class="modal-title">Integración y Síntesis</h2></div>
+                <button class="modal-close" onclick="closeModal('modal12')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-book"></i> Contenidos</h3>
+                    <ul class="content-list">
+                        <li>Síntesis de los aprendizajes del cuatrimestre</li>
+                        <li>Presentación de proyectos integradores</li>
+                        <li>Evaluación del proceso creativo personal</li>
+                        <li>Reflexión sobre el desarrollo de competencias</li>
+                        <li>Proyección hacia EEP2</li>
+                        <li>Cierre y celebración del trabajo realizado</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-bullseye"></i> Objetivos de Aprendizaje</h3>
+                    <ul class="content-list">
+                        <li>Integrar los conocimientos adquiridos durante el cuatrimestre</li>
+                        <li>Presentar un proyecto que demuestre las competencias desarrolladas</li>
+                        <li>Autoevaluar el proceso de aprendizaje</li>
+                        <li>Proyectar los próximos pasos formativos</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title"><i class="fas fa-tasks"></i> Actividades Prácticas</h3>
+                    <ul class="content-list">
+                        <li>Preparación de presentación final de proyecto</li>
+                        <li>Elaboración de portfolio del cuatrimestre</li>
+                        <li>Autoevaluación y reflexión escrita</li>
+                        <li>Entrega de proyecto integrador</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => { navLinks.classList.remove('active'); });
+        });
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) { header.classList.add('scrolled'); }
+            else { header.classList.remove('scrolled'); }
+        });
+        const scrollTop = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) { scrollTop.classList.add('visible'); }
+            else { scrollTop.classList.remove('visible'); }
+        });
+        scrollTop.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+        });
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        fadeElements.forEach(el => fadeObserver.observe(el));
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks2 = document.querySelectorAll('.nav-links a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) { current = section.getAttribute('id'); }
+            });
+            navLinks2.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) { link.classList.add('active'); }
+            });
+        });
+    </script>
+</body>
+</html>
